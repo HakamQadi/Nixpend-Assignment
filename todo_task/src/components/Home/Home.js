@@ -18,7 +18,8 @@ const Home = () => {
   const addColumn = () => {
     axios.post('http://localhost:8080/home/add-column', { title: newColumnName }).then((res) => {
       console.log("post column res ", res.data);
-
+      setShowModal(false);
+      setNewColumnName('')
     });
 
   };
