@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config({ path: "../.env" });
 
-const mySchema = new mongoose.Schema({
+const cardSchema = new mongoose.Schema({
   title: String,
   description: String,
   subtasks: Array,
-  status: String,
+  // status: String,
 });
 
-const ToDo = mongoose.model("ToDo", mySchema);
+const ToDo = mongoose.model("ToDo", cardSchema);
 
 mongoose
   .connect(process.env.CONN_STR, {

@@ -5,13 +5,14 @@ import NavBar from './components/NavBar/NavBar';
 import SideBar from './components/SideBar/SideBar';
 import MarketingPlan from './components/MarketingPlan/MarketingPlan';
 import DataProvider from './context/DataProvider';
-import {dataContext } from './context/DataProvider';
+import { dataContext } from './context/DataProvider';
 import { useState } from 'react';
 
 function App() {
-  const [data, setData] = useState(null)
+  const [status, setStatus] = useState([])
+  // const [column, setColumn] = useState("null")
   return (
-    <dataContext.Provider value={{ setData, data }}>
+    <dataContext.Provider value={{ setStatus, status }}>
       <DataProvider />
       <NavBar />
       <div className='App' style={{ display: 'flex' }}>

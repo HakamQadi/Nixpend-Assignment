@@ -1,51 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext,useState } from 'react';
 import Column from './Column';
 import axios from 'axios';
+import { dataContext } from '../../context/DataProvider';
 
 const Home = () => {
-  const [columnss, setColumnss] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [newColumnName, setNewColumnName] = useState('');
-
+  const { status } = useContext(dataContext);
   const openModal = () => {
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setNewColumnName('');
   };
 
   const addColumn = () => {
-    if (newColumnName.trim() !== '') {
-      setColumnss([...columnss, <Column name={newColumnName} />]);
-      closeModal();
-    }
+    axios.post('http://localhost:8080/home/add-column', { title: newColumnName }).then((res) => {
+      console.log("post column res ", res.data);
+
+    });
+
   };
 
   const handleInputChange = (event) => {
     setNewColumnName(event.target.value);
   };
 
-  const [columns, setColumns] = useState([]);
-  const getColumns = async () => {
-    await axios.get('http://localhost:8080/home/column').then((res) => {
-      setColumns(res.data.column);
-    });
-  };
-  useEffect(() => {
-    getColumns();
-  }, []);
-
   return (
     <>
-      {columns.map((col, index) => (
+      {status.map((col, index) => (
         <div key={index}>
-          <Column name={col} />
+          <Column name={col.title} />
         </div>
-      ))}
-      {columnss.map((col, index) => (
-        <div key={index}> {col}</div>
       ))}
       <button
         onClick={openModal}
@@ -120,95 +107,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-    // <div style={{ width: '100%', padding: '20px' }}>
-
-    //   <div style={{ display: "flex", gap: '20px' }}>
-    //     {
-    //       data.map((da, index) => {
-    //         return (
-    //           <div key={index}>
-    //             {columns.map((datda,index) => {
-    //               return (
-    //                 <div key={index}>
-    //                   <Column decs={datda.desc} text={da.text} data={data} />
-    //                 </div>
-    //               )
-    //             })}
-    //           </div>
-    //         )
-    //       })
-    //     }
-    //     <button onClick={addColumn} style={{
-    //       backgroundColor: 'red',
-    //       color: 'white',
-    //       border: 'none',
-    //       padding: '8px 12px',
-    //       cursor: 'pointer',
-    //       height: '100vh'
-    //     }}>Add Column</button>
-    //   </div>
-    // </div>
-
-
-
-
-
-// import React, { useState } from 'react';
-// import Column from './Column';
-
-// const Home = () => {
-//   const data = [
-//     {
-//       text: "task one",
-//       desc: "desc one",
-//       subTask: "sub one",
-//       status: 'To Do',
-//     },
-//     {
-//       text: "task Two",
-//       desc: "desc Two",
-//       subTask: "sub Two",
-//       status: 'Doing',
-//     },
-//     {
-//       text: "task three",
-//       desc: "desc three",
-//       subTask: "sub three",
-//       status: 'Done',
-//     },
-//   ];
-
-//   const uniqueStatuses = [...new Set(data.map(task => task.status))];
-
-//   const [columns, setColumns] = useState([]);
-
-//   const addColumn = (status) => {
-//     setColumns([...columns, <Column key={status} status={status} data={data} />]);
-//   };
-
-//   return (
-//     <div style={{ width: '100%', padding: '20px' }}>
-//       <div style={{ display: "flex", gap: '20px' }}>
-//         {columns}
-//         {uniqueStatuses.map((status, index) => (
-//           <button key={index} onClick={() => addColumn(status)} style={buttonStyle}>
-//             Add '{status}' Column
-//           </button>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// const buttonStyle = {
-//   backgroundColor: 'red',
-//   color: 'white',
-//   border: 'none',
-//   padding: '8px 12px',
-//   cursor: 'pointer',
-// };
-
-// export default Home;

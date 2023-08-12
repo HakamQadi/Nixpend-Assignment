@@ -1,10 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { dataContext } from '../../context/DataProvider';
 
@@ -15,8 +13,7 @@ const NavBar = () => {
     const [subtask, setSubtask] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
 
-    const { data } = useContext(dataContext);
-    // console.log("nav ", data)
+    const { status } = useContext(dataContext);
     const openModal = () => {
         setShowModal(true);
     };
@@ -156,15 +153,12 @@ const NavBar = () => {
                             }}
                         >
                             <option value="select">Select an option</option>
-                            {
-                                data.map((status, index) => {
-                                    return (
-                                        <option key={index} value={status}>{status}</option>
-                                    )
-                                })
-                            }
-                            {/* Add your dropdown options here */}
-                        </select>
+                            {status.map((option, index) => (
+                                <option key={index} value={option.title}>
+                                    {option.title}
+                                </option>
+                            ))}
+                        </select>       
                         <button style={{
                             backgroundColor: 'green',
                             color: 'white',

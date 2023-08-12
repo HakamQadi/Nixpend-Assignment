@@ -6,17 +6,15 @@ export const dataContext = createContext();
 
 const DataProvider = () => {
 
-    const { setData } = useContext(dataContext);
-    // setData("hakam")
-
+    const { setStatus } = useContext(dataContext);
     useEffect(() => {
         const getColumns = async () => {
             await axios.get('http://localhost:8080/home/column').then((res) => {
-                setData(res.data.column);
+                setStatus(res.data.columns);
             });
         };
         getColumns();
-    }, [setData]);
+    }, [setStatus]);
     return (
         <div>
 
