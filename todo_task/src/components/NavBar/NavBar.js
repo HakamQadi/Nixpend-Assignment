@@ -14,6 +14,8 @@ const NavBar = () => {
     const [selectedOption, setSelectedOption] = useState('');
 
     const { status } = useContext(dataContext);
+    const uniqueStatus = [...new Set(status.map(option => option.title))];
+    // console.log(uniqueStatus)
     const openModal = () => {
         setShowModal(true);
     };
@@ -153,12 +155,12 @@ const NavBar = () => {
                             }}
                         >
                             <option value="select">Select an option</option>
-                            {status.map((option, index) => (
-                                <option key={index} value={option.title}>
-                                    {option.title}
+                            {uniqueStatus.map((option, index) => (
+                                <option key={index} value={option}>
+                                    {option}
                                 </option>
                             ))}
-                        </select>       
+                        </select>
                         <button style={{
                             backgroundColor: 'green',
                             color: 'white',

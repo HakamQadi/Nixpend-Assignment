@@ -14,14 +14,20 @@ function App() {
   return (
     <dataContext.Provider value={{ setStatus, status }}>
       <DataProvider />
+      {/* <div className='row'> */}
       <NavBar />
       <div className='App' style={{ display: 'flex' }}>
+        {/* <div className='col-3'> */}
         <SideBar />
+        {/* </div> */}
+        <div className='col-10'>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/marketing-plan" element={<MarketingPlan />} />
         </Routes>
+        </div>
       </div>
+      {/* </div> */}
     </dataContext.Provider>
   );
 }

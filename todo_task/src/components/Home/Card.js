@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = (props) => {
     const title = props.title
-    const description = props.desc
+    const progress= props.progress
 
     return (
         <div style={{
@@ -20,7 +20,7 @@ const Card = (props) => {
             <p style={{
                 fontSize: '14px',
                 color: '#555',
-            }}>{description}.</p>
+            }}>{progress}</p>
         </div>
     );
 }
