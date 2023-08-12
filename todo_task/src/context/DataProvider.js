@@ -14,7 +14,7 @@ const DataProvider = () => {
             });
         };
         getColumns();
-    }, [setStatus]);
+    });
     return (
         <div>
 
