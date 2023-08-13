@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Column from './Column';
 import axios from 'axios';
 import { dataContext } from '../../context/DataProvider';
@@ -7,7 +7,11 @@ import './style.css'
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [newColumnName, setNewColumnName] = useState('');
-  const { status } = useContext(dataContext);
+  const { status, setStatus } = useContext(dataContext); // Assuming setStatus is a function to update status
+
+  useEffect(() => {
+    // Fetch and update status here if needed
+  }, []);
 
   const openModal = () => {
     setShowModal(true);
@@ -23,6 +27,8 @@ const Home = () => {
       console.log("post column res ", res.data);
       setShowModal(false);
       setNewColumnName('');
+      // Update status with the new column data
+      setStatus(prevStatus => [...prevStatus, { title: newColumnName }]);
     });
   };
 
@@ -39,8 +45,7 @@ const Home = () => {
           </div>
         ))}
         <div className="col-md">
-          <div
-            id='add_btn_container'>
+          <div id='add_btn_container'>
             <button
               onClick={openModal}
               className="btn h-100 w-100"
@@ -88,7 +93,6 @@ const Home = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };
