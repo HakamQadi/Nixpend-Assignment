@@ -3,19 +3,19 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "../.env" });
 
 const columnSchema = new mongoose.Schema({
-    title: String,
-    cards: [
+  title: String,
+  cards: [
+    {
+      title: String,
+      description: String,
+      subtasks: [
         {
-            title: String,
-            description: String,
-            subtasks: [
-                {
-                    title: String
-                }
-            ],
-            status: String,
+          title: String
         }
-    ],
+      ],
+      status: String,
+    }
+  ],
 });
 
 const Columns = mongoose.model("Columns", columnSchema);

@@ -5,8 +5,6 @@ import axios from 'axios';
 const Column = (props) => {
     const name = props.name;
     const [cards, setCards] = useState([]);
-
-
     useEffect(() => {
         const getCards = async () => {
             try {
@@ -19,9 +17,6 @@ const Column = (props) => {
         };
         getCards();
     }, [name]);
-
-
-    // console.log(cards)
     return (
         <div id='column_container'>
             <h4 style={{

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const Card = (props) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [subtaskStatus, setSubtaskStatus] = useState(
-        props.cardData.subtasks.map(() => false) // Initialize with false for each subtask
+        props.cardData.subtasks.map(() => false)
     );
     const card = props.cardData;
     const progress = props.progress;

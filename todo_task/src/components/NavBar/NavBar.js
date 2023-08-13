@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './NavBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
@@ -58,13 +58,15 @@ const NavBar = () => {
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
     };
-
+    const location = useLocation();
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container d-flex justify-content-between">
-                <NavLink className="navbar-brand" to="/">My App</NavLink>
+                <NavLink className="navbar-brand" to="/"><h3>My Platform</h3></NavLink>
                 <div className='d-flex' id="navbarNav">
-                    <button onClick={openModal} className="btn btn-primary">+ Add new task </button>
+                    {location.pathname === '/marketing-plan' ? null : (
+                        <button onClick={openModal} className="btn btn-primary">+ Add new task </button>
+                    )}
                 </div>
             </div>
             {showModal && (

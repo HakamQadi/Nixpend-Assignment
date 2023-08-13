@@ -3,7 +3,7 @@ import DataChart from './DataChart';
 
 const MarketingPlan = () => {
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '70%',margin:'0 auto' }}>
            <DataChart/>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import Column from './Column';
 import axios from 'axios';
 import { dataContext } from '../../context/DataProvider';
@@ -8,10 +8,6 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [newColumnName, setNewColumnName] = useState('');
   const { status, setStatus } = useContext(dataContext); // Assuming setStatus is a function to update status
-
-  useEffect(() => {
-    // Fetch and update status here if needed
-  }, []);
 
   const openModal = () => {
     setShowModal(true);

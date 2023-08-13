@@ -1,9 +1,8 @@
-/* Sidebar.css */
 
 .sidebar {
-    background-color: #f8f9fa; /* Background color for the sidebar */
-    color: #fff; /* Text color */
-    height: 100vh; /* Set the sidebar height to the full viewport height */
+    background-color: #f8f9fa; 
+    color: #fff; 
+    height: 100vh;
     padding: 20px;
     width: 15%;
   }
@@ -22,10 +21,6 @@
     text-decoration: none;
     transition: color 0.3s;
   }
-  
-  /* .sidebar .nav-link:hover {
-    color: #ffc107; 
-  } */
   
   .sidebar .nav-link.active {
     font-weight: bold;

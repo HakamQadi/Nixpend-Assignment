@@ -37,30 +37,21 @@ const options = {
     },
     scales: {
         y: {
-            min: 0,    // Set the minimum value of the Y-axis to 0
-            max: 10,   // Set the maximum value of the Y-axis to 10
-            // You can add more Y-axis customization options here
+            min: 0,   
+            max: 10,  
         },
     },
 };
-
-// const labels = ['January', 'February', 'March'];
-// const num = [1, 2, 3];
-
 const DataChart = () => {
-
     const { status } = useContext(dataContext);
-    // console.log(status);
     const titles = status.map(val => val.title);
-    const num = status.map(val => val.cards.length);
-    // console.log(num)
-
+    const numOfCards = status.map(val => val.cards.length);
     const data = {
         labels: titles,
         datasets: [
             {
-                label: 'Dataset',
-                data: num.map((val) => val),
+                label: 'Cards',
+                data: numOfCards.map((val) => val),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }
