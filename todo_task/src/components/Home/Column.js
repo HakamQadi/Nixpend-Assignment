@@ -6,6 +6,7 @@ const Column = (props) => {
     const name = props.name;
     const [cards, setCards] = useState([]);
 
+
     useEffect(() => {
         const getCards = async () => {
             try {
@@ -19,54 +20,26 @@ const Column = (props) => {
         getCards();
     }, [name]);
 
+
+    // console.log(cards)
     return (
-        <div style={{
-            backgroundColor: '#f8f9fa',
-            borderRadius: '8px',
-            padding: '10px',
-            border: '1px solid #ccc',
-            // marginRight: '10px',
-            minWidth: '200px',
-        }}>
+        <div id='column_container'>
             <h4 style={{
                 fontSize: '20px',
                 marginBottom: '10px',
             }}>{name}</h4>
-            <div style={{
-                // display: 'flex',
-                // flexDirection: 'column',
-            }}>
-                {cards.length > 0 ? (
-                    cards.map((card, index) => (
-                        <div key={index} 
-                        // style={{
-                        //     border: '1px solid #ccc',
-                        //     borderRadius: '8px',
-                        //     padding: '10px',
-                        //     backgroundColor: '#ffffff',
-                        //     marginBottom: '10px',
-                        //     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-                        // }}
-                        >
+            <div>
+                {
+                    cards.map(
+                        (card, index) =>
+                        (
+                            <div key={index}>
+                                <Card progress={'0 out of 3'} cardData={card} />
+                            </div>
+                        )
+                    )
+                }
 
-                            <Card progress={'0 out of 3'} title={card.title} />
-                        </div>
-                    ))
-                ) : (
-                    <div 
-                    // style={{
-                        // border: '1px solid #ccc',
-                        // borderRadius: '8px',
-                        // padding: '10px',
-                        // backgroundColor: '#ffffff',
-                        // marginBottom: '10px',
-                        // boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-                    // }}
-                    >
-                        {/* <hr /> */}
-                        <Card progress={'0 out of 0'} title={'No cards'} />
-                    </div>
-                )}
             </div>
         </div>
     );

@@ -70,7 +70,7 @@ exports.getCardsByColumn = async (req, res) => {
 // Add Card (POST) Done
 exports.addCard = async (req, res) => {
   const { title, description, subtasks, status } = req.body;
-  const transformedSubtasks = subtasks.map(subtask => ({ title: subtask.text }));
+  const transformedSubtasks = subtasks.map(subtask => ({ title: subtask }));
 
   const card = {
     title,

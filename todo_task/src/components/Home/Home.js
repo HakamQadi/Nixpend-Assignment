@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import Column from './Column';
 import axios from 'axios';
 import { dataContext } from '../../context/DataProvider';
+import './style.css'
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -34,45 +35,27 @@ const Home = () => {
       <div className="row flex-nowrap overflow-auto h-100">
         {status.map((col, index) => (
           <div key={index} className="col-md">
-
             <Column name={col.title} />
           </div>
         ))}
         <div className="col-md">
-          <div style={{
-            display: 'flex',
-            justifyContent: "center",
-            // alignItems: "center",
-
-            height: '100vh',
-            // backgroundColor: '#f8f9fa',
-            // borderRadius: '8px',
-            // padding: '10px',
-            // border: '1px solid #ccc',
-            // marginRight: '150px',
-            minWidth: '200px',
-
-          }}>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%'
-            }}>
-              <button
-                onClick={openModal}
-                className="btn h-100 w-100"
-                style={{
-                  backgroundColor: '#f8f9fa'
-                }}
-              >
-                Add Column
-              </button>
-            </div>
+          <div
+            id='add_btn_container'>
+            <button
+              onClick={openModal}
+              className="btn h-100 w-100"
+              style={{
+                backgroundColor: '#f8f9fa'
+              }}
+            >
+              Add Column
+            </button>
           </div>
         </div>
       </div>
       {showModal && (
-        <div className="modal d-flex justify-content-center align-items-center" style={{ display: 'block', background: 'rgba(0, 0, 0, 0.5)' }}>
+        <div className="modal d-flex justify-content-center align-items-center"
+          style={{ display: 'block', background: 'rgba(0, 0, 0, 0.5)' }}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

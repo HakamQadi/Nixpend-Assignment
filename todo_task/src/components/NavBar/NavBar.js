@@ -10,12 +10,12 @@ const NavBar = () => {
     const [showModal, setShowModal] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [subtasks, setSubtasks] = useState([]);
     const [subtask, setSubtask] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
 
     const { status } = useContext(dataContext);
     const uniqueStatus = [...new Set(status.map(option => option.title))];
-    // console.log(uniqueStatus)
     const openModal = () => {
         setShowModal(true);
     };
@@ -24,32 +24,22 @@ const NavBar = () => {
         setShowModal(false);
         setTitle('');
         setDescription('');
+        setSubtasks([]);
         setSubtask('');
         setSelectedOption('');
     };
 
     const addTask = async () => {
-        // Perform the necessary action to add the task
-        // For now, just close the modal
-        // console.log(title)
-        // console.log(description)
-        // console.log(subtask)
-        // console.log(selectedOption)
-
         await axios.post('http://localhost:8080/home/add-card',
             {
                 title,
                 description,
-                subtasks: [
-                    subtask
-                ],
+                subtasks: subtasks,
                 status: selectedOption,
-
             }
         ).then((res) => {
             console.log(res.data.message)
         })
-
         closeModal();
     };
 
@@ -75,84 +65,47 @@ const NavBar = () => {
                 <NavLink className="navbar-brand" to="/">My App</NavLink>
                 <div className='d-flex' id="navbarNav">
                     <button onClick={openModal} className="btn btn-primary">+ Add new task </button>
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item dropdown">
-                            {/* Dropdown content */}
-                        </li>
-                    </ul>
                 </div>
             </div>
             {showModal && (
-                <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100vw',
-                        height: '100vh',
-                        background: 'rgba(0, 0, 0, 0.5)',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div
-                        style={{
-                            background: '#fff',
-                            padding: '20px',
-                            borderRadius: '8px',
-                            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.3)',
-                        }}
-                    >
+                <div id='popUp_dialog'>
+                    <div id='popUp_dialog_container'>
                         <h3 style={{ marginBottom: '10px' }}>Add Task</h3>
-                        <input
+                        <input className='input'
                             type="text"
                             placeholder="Title"
                             value={title}
-                            onChange={handleTitleChange}
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                marginBottom: '10px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                        <textarea
+                            onChange={handleTitleChange} />
+                        <textarea className='input'
                             placeholder="Description"
                             value={description}
-                            onChange={handleDescriptionChange}
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                marginBottom: '10px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Subtask"
-                            value={subtask}
-                            onChange={handleSubtaskChange}
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                marginBottom: '10px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
+                            onChange={handleDescriptionChange} />
+                        <div>
+                            {subtasks.map((subtask, index) => (
+                                <div key={index} style={{ marginBottom: '5px' }}>{subtask}</div>
+                            ))}
+                            <input
+                                className='input'
+                                type="text"
+                                placeholder="Subtask"
+                                value={subtask}
+                                onChange={handleSubtaskChange} />
+                            <button
+                                id='add_subtask_btn'
+                                onClick={() => {
+                                    if (subtask) {
+                                        setSubtasks([...subtasks, subtask]);
+                                        setSubtask('');
+                                    }
+                                }}
+                            >
+                                Add Subtask
+                            </button>
+                        </div>
                         <select
+                            className='input'
                             value={selectedOption}
                             onChange={handleOptionChange}
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                marginBottom: '10px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
                         >
                             <option value="select">Select an option</option>
                             {uniqueStatus.map((option, index) => (
@@ -161,27 +114,20 @@ const NavBar = () => {
                                 </option>
                             ))}
                         </select>
-                        <button style={{
-                            backgroundColor: 'green',
-                            color: 'white',
-                            border: 'none',
-                            padding: '8px 12px',
-                            cursor: 'pointer',
-                            marginRight: '10px',
-                            borderRadius: '4px',
-                        }}
+                        <button
+                            className='action_btn'
+                            style={{ backgroundColor: 'green' }}
                             onClick={addTask}
-                        >OK</button>
-                        <button style={{
-                            backgroundColor: 'gray',
-                            color: 'white',
-                            border: 'none',
-                            padding: '8px 12px',
-                            cursor: 'pointer',
-                            borderRadius: '4px',
-                        }}
+                        >
+                            OK
+                        </button>
+                        <button
+                            className='action_btn'
+                            style={{ backgroundColor: 'gray' }}
                             onClick={closeModal}
-                        >Cancel</button>
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </div>
             )}
@@ -190,3 +136,4 @@ const NavBar = () => {
 }
 
 export default NavBar;
+
